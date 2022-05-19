@@ -5,6 +5,7 @@ import com.nhnacademy.jdbc.board.post.service.PostService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.nhnacademy.jdbc.board.user.domain.User;
 import com.nhnacademy.jdbc.board.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class PostDeleteController {
         HttpSession session = request.getSession(false);
         int userNo = (int) session.getAttribute("no");
         Post post = postService.getPost(postNo).get();
-        if (userNo == post.getUserNo()) {
+        User user = userService.getUserByNo(userNo).get();
+        if (userNo == post.getUserNo() || user.getUserNo() == 1) {
             postService.deletePost(postNo);
             return "redirect:/post/list";
         }
