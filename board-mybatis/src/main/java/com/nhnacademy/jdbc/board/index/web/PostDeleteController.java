@@ -1,5 +1,6 @@
 package com.nhnacademy.jdbc.board.index.web;
 
+import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,14 +22,13 @@ public class PostDeleteController {
 
         HttpSession session = request.getSession(false);
         int userNo = (int) session.getAttribute("no");
-        postService.getPost(postNo).ifPresent(post -> {
-            if (userNo == post.getUserNo()) {
-                postService.deletePost(postNo);
-            }
-            else{
-                throw new RuntimeException(); // todo : 삭제하려는 사용자랑 글 작성자가 다른 경우 (관리자일 경우에는 허용해야 하는거 추가해야된다)
-            }
-        });
-        return "redirect:/post/list";
+        Post post = postService.getPost(postNo).get();
+        if (userNo == post.getUserNo()) {
+            postService.deletePost(postNo);
+            return "redirect:/post/list";
+        }
+        else{
+            return "redirect:/post/postView?no=" + postNo;
+        }
     }
 }
