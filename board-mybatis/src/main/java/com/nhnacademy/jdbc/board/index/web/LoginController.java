@@ -38,7 +38,7 @@ public class LoginController {
             HttpSession session = request.getSession(true);
             session.setAttribute("id", id);
             log.debug("student : {}", user.get());
-            return "redirect:/board/boardList";
+            return "redirect:/post/list";
         }
         return "login/loginForm";
     }
