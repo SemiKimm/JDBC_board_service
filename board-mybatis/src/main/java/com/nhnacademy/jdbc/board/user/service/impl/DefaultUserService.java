@@ -18,4 +18,9 @@ public class DefaultUserService implements UserService {
     public Optional<User> getUser(String id, String password) {
         return userMapper.getUser(id,password);
     }
+
+    @Override
+    public Optional<User> getUserByNo(int userNo) {
+        return userMapper.getUserByNo(userNo);
+    }
 }

@@ -5,4 +5,6 @@ import java.util.Optional;
 
 public interface UserService {
     Optional<User> getUser(String id,String password);
+
+    Optional<User> getUserByNo(int userNo);
 }

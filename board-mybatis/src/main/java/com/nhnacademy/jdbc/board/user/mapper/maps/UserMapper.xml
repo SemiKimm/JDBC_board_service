@@ -15,6 +15,16 @@
             where user_id = #{id} and user_password = #{password}
     </select>
 
+    <select id="getUserByNo" resultType="com.nhnacademy.jdbc.board.user.domain.User">
+        select
+            user_no,
+            user_id,
+            user_password,
+            user_nickname,
+            user_type_code
+        from user
+        where user_no = #{no}
+    </select>
     <!--    <select id="selectUser" resultType="com.nhnacademy.jdbc.board.user.domain.user">-->
 <!--        select *-->
 <!--        from JdbcUsers-->
