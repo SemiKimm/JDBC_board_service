@@ -1,23 +1,25 @@
 package com.nhnacademy.jdbc.board.post.domain;
 
 import java.util.Date;
+import lombok.Getter;
 
+@Getter
 public class Post {
-    private final int postNo;
+    private final Integer postNo;
     private final String postTitle;
     private final String postContent;
     private final Date writeDateTime;
     private final int replyOrder;
     private final int userNo; // fk
     private final int boardTypeCode; // fk
-    private final int parentPostNo; // fk
-    private final int topPostNo; // fk
+    private final Integer parentPostNo; // fk
+    private final Integer topPostNo; // fk
     private int modifierUserNo; // fk
     private Date modifyDatetime;
 
-    public Post(int postNo, String postTitle, String postContent, Date writeDateTime,
+    public Post(Integer postNo, String postTitle, String postContent, Date writeDateTime,
                 int replyOrder,
-                int userNo, int boardTypeCode, int parentPostNo, int topPostNo) {
+                int userNo, int boardTypeCode, Integer parentPostNo, Integer topPostNo) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postContent = postContent;

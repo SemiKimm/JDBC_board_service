@@ -15,17 +15,23 @@
         from post
     </select>
 
+<!--    답글용이랑 본글용이랑 insert 따로 만들어야 될듯-->
     <insert id="insertPost">
-        insert into post() -- todo
-        values () -- todo
+        insert into post(post_title, post_content, write_datetime, reply_order,
+                         user_no, board_type_code) -- todo
+        values (#{postTitle}, #{postContent}, #{writeDateTime},
+                #{replyOrder}, #{userNo}, #{boardTypeCode})
     </insert>
 
     <update id="updatePostByNo">
-        update post set -- todo
-        where -- todo
+        update post
+        set -- todo
+            where -- todo
     </update>
 
     <delete id="deleteByNo">
-        delete from post where post_no = #{no}
+        delete
+        from post
+        where post_no = #{no}
     </delete>
 </mapper>

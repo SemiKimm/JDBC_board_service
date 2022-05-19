@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 public interface PostMapper {
     Optional<Post> selectPost(@Param("no") int no);
     List<Post> selectPosts();
-    int insertPost(@Param("post") Post post);
+    int insertPost(Post post);
     int updatePostByNo(@Param("post") Post post,@Param("no") int no);
     int deleteByNo(@Param("no") int no);
 }

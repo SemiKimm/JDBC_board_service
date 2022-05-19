@@ -2,8 +2,10 @@ package com.nhnacademy.jdbc.board.post.service;
 
 import com.nhnacademy.jdbc.board.post.domain.Post;
 import java.util.List;
+import java.util.Optional;
 
 public interface PostService {
     List<Post> getPosts();
-    Post getPost(int no);
+    Optional<Post> getPost(int no);
+    int registerPost(String title, String content);
 }

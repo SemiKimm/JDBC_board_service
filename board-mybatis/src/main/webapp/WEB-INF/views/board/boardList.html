@@ -5,10 +5,28 @@
     <title>Title</title>
 </head>
 <body>
+<h1>게시글 목록</h1>
 <table>
-<tr>
-    
-</tr>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>(수정자)</th>
+        <th>작성일시</th>
+        <th>댓글 개수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.postNo}"></td>
+        <td th:text="${post.postTitle}"></td>
+        <td th:text="${post.userNo}"></td>
+        <td th:text="${post.writeDateTime}"></td>
+        <td>0</td>
+<!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
+    </tr>
+    </tbody>
 </table>
 
 </body>
