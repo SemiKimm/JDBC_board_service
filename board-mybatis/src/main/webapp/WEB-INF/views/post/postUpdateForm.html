@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+</head>
+<body>
+<form method="post" th:action="@{/post/update}">
+    <label>
+        제목
+    </label>
+    <input type="text" name="postTitle" th:value="${post.title}"/>
+    <label>
+        내용
+    </label>
+    <textarea name="postContent" rows="10" cols="80" th:value="${post.content}"></textarea>
+    <br/>
+    <input type="submit" value="수정">
+</form>
+</body>
+</html>
