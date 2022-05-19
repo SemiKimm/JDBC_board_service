@@ -11,7 +11,7 @@
     </select>
 
     <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
-        select *
+        select post_no, post_title, post_content, write_datetime, reply_order, user_no, board_type_code, parent_post_no, top_post_no
         from post
     </select>
 
