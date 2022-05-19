@@ -36,4 +36,9 @@ public class DefaultPostService implements PostService {
         Post post = new Post(null, title, content, new Timestamp(new Date().getTime()),0,writerNo,1,null,null);
         return postMapper.insertPost(post);
     }
+
+    @Override
+    public int deletePost(int postNo) {
+        return postMapper.deleteByNo(postNo);
+    }
 }

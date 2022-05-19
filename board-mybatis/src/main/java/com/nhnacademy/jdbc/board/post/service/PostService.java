@@ -8,4 +8,5 @@ public interface PostService {
     List<Post> getPosts();
     Optional<Post> getPost(int no);
     int registerPost(int writerNo, String title, String content);
+    int deletePost(int postNo);
 }

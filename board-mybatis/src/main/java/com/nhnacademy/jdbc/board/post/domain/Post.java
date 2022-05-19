@@ -18,7 +18,7 @@ public class Post {
     private int modifierUserNo; // fk
     private Date modifyDatetime;
     @Setter
-    private boolean isDelete = true;
+    private boolean isDelete = false;
 
     public Post(Integer postNo, String postTitle, String postContent, Date writeDateTime,
                 int replyOrder,

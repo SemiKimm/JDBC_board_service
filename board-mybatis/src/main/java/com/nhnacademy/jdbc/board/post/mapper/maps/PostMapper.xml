@@ -7,12 +7,12 @@
     <select id="selectPost" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
         select *
         from post
-        where post_no = #{no}
+        where post_no = #{no} and is_delete = false
     </select>
 
     <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
         select post_no, post_title, post_content, write_datetime, reply_order, user_no, board_type_code, parent_post_no, top_post_no
-        from post
+        from post where is_delete = false
     </select>
 
 <!--    답글용이랑 본글용이랑 insert 따로 만들어야 될듯-->
@@ -30,8 +30,6 @@
     </update>
 
     <delete id="deleteByNo">
-        delete
-        from post
-        where post_no = #{no}
+        update post set is_delete = true where post_no = #{no}
     </delete>
 </mapper>
