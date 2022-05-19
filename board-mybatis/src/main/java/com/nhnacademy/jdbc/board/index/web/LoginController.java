@@ -36,7 +36,7 @@ public class LoginController {
         Optional<User> user = userService.getUser(id, password);
         if (user.isPresent()) {
             HttpSession session = request.getSession(true);
-            session.setAttribute("id", id);
+            session.setAttribute("no", user.get().getUserNo());
             log.debug("student : {}", user.get());
             return "redirect:/post/list";
         }
