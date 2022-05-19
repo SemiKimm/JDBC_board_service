@@ -15,7 +15,7 @@ public class DefaultPostService implements PostService {
 
     @Override
     public int updatePost(Post post) {
-        return postMapper.updatePostByNo(post,post.getPostNo());
+        return postMapper.updatePostByNo(post);
     }
 
     public DefaultPostService(PostMapper postMapper) {

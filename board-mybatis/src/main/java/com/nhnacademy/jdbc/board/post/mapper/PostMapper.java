@@ -11,6 +11,6 @@ public interface PostMapper {
     Optional<Post> selectPost(@Param("no") int no);
     List<Post> selectPosts();
     int insertPost(Post post);
-    int updatePostByNo(@Param("post") Post post,@Param("no") int no);
+    int updatePostByNo(@Param("post") Post post);
     int deleteByNo(@Param("no") int no);
 }

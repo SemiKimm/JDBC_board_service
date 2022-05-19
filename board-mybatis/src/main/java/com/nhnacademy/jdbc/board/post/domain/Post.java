@@ -7,15 +7,19 @@ import lombok.Setter;
 @Getter
 public class Post {
     private final Integer postNo;
-    private final String postTitle;
-    private final String postContent;
+    @Setter
+    private String postTitle;
+    @Setter
+    private String postContent;
     private final Date writeDateTime;
     private final int replyOrder;
     private final int userNo; // fk
     private final int boardTypeCode; // fk
     private final Integer parentPostNo; // fk
     private final Integer topPostNo; // fk
+    @Setter
     private int modifierUserNo; // fk
+    @Setter
     private Date modifyDatetime;
     @Setter
     private boolean isDelete = false;
@@ -33,4 +37,6 @@ public class Post {
         this.parentPostNo = parentPostNo;
         this.topPostNo = topPostNo;
     }
+
+
 }

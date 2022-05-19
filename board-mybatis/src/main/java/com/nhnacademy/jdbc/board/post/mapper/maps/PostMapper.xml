@@ -5,7 +5,7 @@
 
 <mapper namespace="com.nhnacademy.jdbc.board.post.mapper.PostMapper">
     <select id="selectPost" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
-        select post_no, post_title, post_content, write_datetime, reply_order, user_no, board_type_code, parent_post_no, top_post_no
+        select post_no, post_title, post_content, write_datetime, reply_order, user_no, board_type_code, parent_post_no, top_post_no, modifier_user_no,modify_datetime
         from post
         where post_no = #{no} and is_delete = false
     </select>
@@ -25,8 +25,8 @@
 
     <update id="updatePostByNo">
         update post
-        set -- todo
-            where -- todo
+        set post_title = #{post.postTitle},post_content = #{post.postContent},modifier_user_no = #{post.modifierUserNo},modify_datetime = #{post.modifyDatetime}
+            where post_no = #{post.postNo}
     </update>
 
     <delete id="deleteByNo">

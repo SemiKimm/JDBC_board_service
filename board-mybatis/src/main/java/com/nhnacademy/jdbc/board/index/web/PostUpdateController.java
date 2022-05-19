@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 @Controller
 public class PostUpdateController {
     private final PostService postService;
@@ -34,8 +37,25 @@ public class PostUpdateController {
         return mv;
     }
 
-    @PostMapping("/post/")
-    public String doUpdatePost(){
-        return null;
+    @PostMapping("/post/update")
+    public ModelAndView doUpdatePost(@RequestParam("no") int postNo,
+                                     @RequestParam("postTitle") String postTitle,
+                                     @RequestParam("postContent") String postContent,
+                                     HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        int userNo = (int) session.getAttribute("no");
+        Post post = postService.getPost(postNo).get();
+        ModelAndView mv = new ModelAndView();
+        if (userNo != post.getUserNo()) {
+            mv.setViewName("redirect:/post/postView?no=" + postNo);
+        }else{
+            post.setPostTitle(postTitle);
+            post.setPostContent(postContent);
+            post.setModifierUserNo(userNo);
+            post.setModifyDatetime(new Timestamp(new Date().getTime()));
+            postService.updatePost(post);
+            mv.setViewName("redirect:/post/postView?no=" + postNo);
+        }
+        return mv;
     }
 }
