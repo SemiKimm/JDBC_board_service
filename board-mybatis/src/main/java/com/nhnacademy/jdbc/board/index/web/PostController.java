@@ -1,6 +1,8 @@
 package com.nhnacademy.jdbc.board.index.web;
 
+import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +24,14 @@ public class PostController {
 
     @GetMapping("/list")
     public String viewPostList(Model model){
-        model.addAttribute("posts", postService.getPosts());
-        return "board/boardList";
+        List<Post> postList = postService.getPosts();
+        model.addAttribute("posts", postList);
+        return "post/postList";
     }
 
     @GetMapping("/register")
     public String registerPostForm() {
-        return "board/boardForm";
+        return "post/postForm";
     }
 
     @PostMapping("/register")
