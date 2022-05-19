@@ -13,13 +13,33 @@ import org.springframework.stereotype.Service;
 public class DefaultPostService implements PostService {
     private final PostMapper postMapper;
 
+    public DefaultPostService(PostMapper postMapper) {
+        this.postMapper = postMapper;
+    }
+
     @Override
     public int updatePost(Post post) {
         return postMapper.updatePostByNo(post);
     }
 
-    public DefaultPostService(PostMapper postMapper) {
-        this.postMapper = postMapper;
+    @Override
+    public int getLastPageSize() {
+        int postsSize = getPosts().size();
+        if (postsSize % 15 > 0) {
+            return postsSize / 15 + 1;
+        }
+        return postsSize / 15;
+    }
+
+    @Override
+    public List<Post> getPagePosts(int page) {
+        int tmp = (page-1)*15;
+        return postMapper.selectPagePosts(tmp);
+    }
+
+    @Override
+    public List<Post> getFirstPagePosts() {
+        return postMapper.selectFirstPagePosts();
     }
 
     @Override
@@ -30,7 +50,7 @@ public class DefaultPostService implements PostService {
     @Override
     public Optional<Post> getPost(int no) {
         Optional<Post> post = postMapper.selectPost(no);
-        if(post.isEmpty()){
+        if (post.isEmpty()) {
             throw new RuntimeException(); // todo
         }
         return post;
@@ -38,7 +58,9 @@ public class DefaultPostService implements PostService {
 
     @Override
     public int registerPost(int writerNo, String title, String content) {
-        Post post = new Post(null, title, content, new Timestamp(new Date().getTime()),0,writerNo,1,null,null);
+        Post post =
+            new Post(null, title, content, new Timestamp(new Date().getTime()), 0, writerNo, 1,
+                null, null);
         return postMapper.insertPost(post);
     }
 
