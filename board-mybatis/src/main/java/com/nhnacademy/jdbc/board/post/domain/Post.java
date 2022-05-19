@@ -18,7 +18,7 @@ public class Post {
     private final Integer parentPostNo; // fk
     private final Integer topPostNo; // fk
     @Setter
-    private int modifierUserNo; // fk
+    private Integer modifierUserNo; // fk
     @Setter
     private Date modifyDatetime;
     @Setter
@@ -38,7 +38,7 @@ public class Post {
         this.topPostNo = topPostNo;
     }
 
-    public Post(Integer postNo, String postTitle, String postContent, Date writeDateTime, int replyOrder, int userNo, int boardTypeCode, Integer parentPostNo, Integer topPostNo, int modifierUserNo, Date modifyDatetime) {
+    public Post(Integer postNo, String postTitle, String postContent, Date writeDateTime, int replyOrder, int userNo, int boardTypeCode, Integer parentPostNo, Integer topPostNo, Integer modifierUserNo, Date modifyDatetime) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postContent = postContent;
