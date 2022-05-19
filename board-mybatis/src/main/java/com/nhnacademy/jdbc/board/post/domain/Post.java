@@ -38,5 +38,17 @@ public class Post {
         this.topPostNo = topPostNo;
     }
 
-
+    public Post(Integer postNo, String postTitle, String postContent, Date writeDateTime, int replyOrder, int userNo, int boardTypeCode, Integer parentPostNo, Integer topPostNo, int modifierUserNo, Date modifyDatetime) {
+        this.postNo = postNo;
+        this.postTitle = postTitle;
+        this.postContent = postContent;
+        this.writeDateTime = writeDateTime;
+        this.replyOrder = replyOrder;
+        this.userNo = userNo;
+        this.boardTypeCode = boardTypeCode;
+        this.parentPostNo = parentPostNo;
+        this.topPostNo = topPostNo;
+        this.modifierUserNo = modifierUserNo;
+        this.modifyDatetime = modifyDatetime;
+    }
 }
