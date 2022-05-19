@@ -2,6 +2,7 @@ package com.nhnacademy.jdbc.board.post.domain;
 
 import java.util.Date;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Post {
@@ -16,6 +17,8 @@ public class Post {
     private final Integer topPostNo; // fk
     private int modifierUserNo; // fk
     private Date modifyDatetime;
+    @Setter
+    private boolean isDelete = true;
 
     public Post(Integer postNo, String postTitle, String postContent, Date writeDateTime,
                 int replyOrder,

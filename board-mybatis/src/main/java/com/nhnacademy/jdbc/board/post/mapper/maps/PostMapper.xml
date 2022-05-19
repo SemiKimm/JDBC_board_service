@@ -18,9 +18,9 @@
 <!--    답글용이랑 본글용이랑 insert 따로 만들어야 될듯-->
     <insert id="insertPost">
         insert into post(post_title, post_content, write_datetime, reply_order,
-                         user_no, board_type_code) -- todo
+                         user_no, board_type_code, is_delete) -- todo
         values (#{postTitle}, #{postContent}, #{writeDateTime},
-                #{replyOrder}, #{userNo}, #{boardTypeCode})
+                #{replyOrder}, #{userNo}, #{boardTypeCode}, #{isDelete})
     </insert>
 
     <update id="updatePostByNo">
