@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 public class DefaultPostService implements PostService {
     private final PostMapper postMapper;
 
+    @Override
+    public int updatePost(Post post) {
+        return postMapper.updatePostByNo(post,post.getPostNo());
+    }
+
     public DefaultPostService(PostMapper postMapper) {
         this.postMapper = postMapper;
     }

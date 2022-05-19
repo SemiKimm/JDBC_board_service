@@ -9,11 +9,11 @@
     <label>
         제목
     </label>
-    <input type="text" name="postTitle" th:value="${post.title}"/>
+    <input type="text" name="postTitle" th:value="${post.postTitle}"/>
     <label>
         내용
     </label>
-    <textarea name="postContent" rows="10" cols="80" th:value="${post.content}"></textarea>
+    <textarea name="postContent" rows="10" cols="80" th:text="${post.postContent}"></textarea>
     <br/>
     <input type="submit" value="수정">
 </form>
