@@ -4,7 +4,9 @@ import com.nhnacademy.jdbc.board.student.domain.Student;
 
 import java.util.List;
 import java.util.Optional;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface StudentMapper {
     Optional<Student> selectStudent(long id);
     List<Student> selectStudents();

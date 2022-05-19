@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nhnacademy.jdbc.board.post.mapper.PostMapper">
+    <select id="selectPost" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
+        select *
+        from post
+        where post_no = #{no}
+    </select>
+
+    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
+        select *
+        from post
+    </select>
+
+    <insert id="insertPost">
+        insert into post() -- todo
+        values () -- todo
+    </insert>
+
+    <update id="updatePostByNo">
+        update post set -- todo
+        where -- todo
+    </update>
+
+    <delete id="deleteByNo">
+        delete from post where post_no = #{no}
+    </delete>
+</mapper>
