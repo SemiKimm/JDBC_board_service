@@ -3,6 +3,8 @@ package com.nhnacademy.jdbc.board.index.web;
 import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,8 +38,11 @@ public class PostController {
 
     @PostMapping("/register")
     public String doRegisterPost(@RequestParam("postTitle") String title,
-                                 @RequestParam("postContent") String content) {
-        postService.registerPost(title, content);
+                                 @RequestParam("postContent") String content,
+                                 HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        int writerNo = (int) session.getAttribute("no");
+        postService.registerPost(writerNo, title, content);
         return "redirect:/post/list";
     }
 }

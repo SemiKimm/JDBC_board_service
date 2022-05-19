@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface PostService {
     List<Post> getPosts();
     Optional<Post> getPost(int no);
-    int registerPost(String title, String content);
+    int registerPost(int writerNo, String title, String content);
 }

@@ -32,9 +32,8 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
-    public int registerPost(String title, String content) {
-        // fixme : user 정보랑 엮어 야 됨 그러면 파라미터로 session 에 등록된 id 가져와서 여기서 ~~
-        Post post = new Post(null, title, content, new Timestamp(new Date().getTime()),0,1,1,null,null);
+    public int registerPost(int writerNo, String title, String content) {
+        Post post = new Post(null, title, content, new Timestamp(new Date().getTime()),0,writerNo,1,null,null);
         return postMapper.insertPost(post);
     }
 }
