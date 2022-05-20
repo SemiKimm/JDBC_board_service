@@ -1,6 +1,7 @@
 package com.nhnacademy.jdbc.board.index.web;
 
 import com.nhnacademy.jdbc.board.comment.service.CommentService;
+import com.nhnacademy.jdbc.board.good.service.GoodService;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,11 +22,14 @@ public class PostViewController {
 
     private final PostService postService;
     private final CommentService commentService;
+    private final GoodService goodService;
 
     public PostViewController(PostService postService,
-                              CommentService commentService) {
+                              CommentService commentService,
+                              GoodService goodService) {
         this.postService = postService;
         this.commentService = commentService;
+        this.goodService = goodService;
     }
 
     @GetMapping
@@ -43,6 +47,7 @@ public class PostViewController {
         });
         model.addAttribute("comments",commentService.getComments(no));
         model.addAttribute("loginUserNo",loginUserNo);
+        model.addAttribute("goodCount",goodService.getGoodCount(no));
         return "post/postView";
     }
 

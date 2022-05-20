@@ -5,6 +5,7 @@ import com.nhnacademy.jdbc.board.good.mapper.GoodMapper;
 import com.nhnacademy.jdbc.board.good.service.GoodService;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -17,8 +18,9 @@ public class DefaultGoodService implements GoodService {
     }
 
     @Override
-    public Optional<Good> isUserGoodToPost(int postNo, int userNo) {
-        return goodMapper.selectGood(postNo,userNo);
+    public boolean isUserGoodToPost(int postNo, int userNo) {
+        boolean result = Objects.nonNull(goodMapper.selectGood(postNo,userNo));
+        return result;
     }
 
     @Override

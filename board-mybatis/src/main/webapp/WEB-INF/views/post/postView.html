@@ -25,10 +25,7 @@
     <legend>본문</legend>
     <div stype="white-space:pre-wrap" th:utext="${post.postContent}"></div>
 </fieldset>
-    <form method="get" th:action="@{/post/postView/isUserGoodToPost(postNo=${post.postNo})}">
-        <input type="button" name="commentContent" rows="5" cols="80"/>
-        <input type="submit" value="좋아요"/>
-    </form>
+    <a th:href="@{/post/postView/isUserGoodToPost(postNo=${post.postNo})}">좋아요</a>
     <span th:text="${goodCount}"/><br/>
 <fieldset>
     <legend>댓글</legend>

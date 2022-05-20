@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface GoodMapper {
     int insertGood(@Param("postNo") int postNo, @Param("userNo") int userNo);
     int deleteGood(@Param("postNo") int postNo, @Param("userNo") int userNo);
-    Optional<Good> selectGood(@Param("postNo") int postNo, @Param("userNo") int userNo);
+    Good selectGood(@Param("postNo") int postNo, @Param("userNo") int userNo);
     int getGoodCount(@Param("postNo") int postNo);
 }
