@@ -15,9 +15,16 @@ public class DefaultCommentService implements CommentService {
         this.commentMapper = commentMapper;
     }
 
+    private List<Comment> newLineParser(List<Comment> comments) {
+        comments.forEach(comment -> {
+            comment.setCommentContent(comment.getCommentContent().replace("\n", "<br/>"));
+        });
+        return comments;
+    }
+
     @Override
     public List<Comment> getComments(int postNo) {
-        return commentMapper.selectCommentsByPostNo(postNo);
+        return newLineParser(commentMapper.selectCommentsByPostNo(postNo));
     }
 
     @Override
@@ -31,10 +38,12 @@ public class DefaultCommentService implements CommentService {
     }
 
     @Override
-    public void modifyComment(int commentNo, String modifyContent) {
+    public void modifyComment(int loginUserNo, int commentNo, String modifyContent) {
         getComment(commentNo).ifPresent(comment -> {
-            comment.setCommentContent(modifyContent);
-            commentMapper.updateComment(comment);
+            if (comment.getUserNo() == loginUserNo) {
+                comment.setCommentContent(modifyContent);
+                commentMapper.updateComment(comment);
+            }
         });
     }
 

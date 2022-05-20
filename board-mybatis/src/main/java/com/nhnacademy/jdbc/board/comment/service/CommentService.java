@@ -8,6 +8,6 @@ public interface CommentService {
     List<Comment> getComments(int postNo);
     Optional<Comment> getComment(int commentNo);
     int addComment(Comment comment);
-    void modifyComment(int commentNo, String modifyContent);
+    void modifyComment(int loginUserNo, int commentNo, String modifyContent);
     int deleteComment(int commentNo);
 }
