@@ -10,9 +10,9 @@
         where comment_no = #{commentNo}
     </select>
 
-    <select id="selectComments" resultType="com.nhnacademy.jdbc.board.comment.domain.Comment">
+    <select id="selectCommentsByPostNo" resultType="com.nhnacademy.jdbc.board.comment.domain.Comment">
         select comment_no, comment_content, post_no, user_no
-        from comment
+        from comment where post_no = #{postNo}
     </select>
 
     <insert id="insertComment">

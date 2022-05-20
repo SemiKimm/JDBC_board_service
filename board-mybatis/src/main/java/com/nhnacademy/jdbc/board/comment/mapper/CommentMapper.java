@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 public interface CommentMapper {
     Optional<Comment> selectComment(@Param("commentNo") int commentNo);
 
-    List<Comment> selectComments(@Param("postNo") int postNo);
+    List<Comment> selectCommentsByPostNo(@Param("postNo") int postNo);
 
     int insertComment(@Param("comment") Comment comment);
 

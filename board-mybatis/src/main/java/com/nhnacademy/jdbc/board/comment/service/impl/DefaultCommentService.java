@@ -17,7 +17,7 @@ public class DefaultCommentService implements CommentService {
 
     @Override
     public List<Comment> getComments(int postNo) {
-        return commentMapper.selectComments(postNo);
+        return commentMapper.selectCommentsByPostNo(postNo);
     }
 
     @Override
