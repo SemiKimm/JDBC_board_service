@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>게시글 상세보기</h1>
+<a th:href="@{/post/deletedPost}"/>목록보기</a>
+<label>제목 : </label><span th:text="${post.postTitle}"/>
+<fieldset>
+    <legend>게시글 정보</legend>
+    <label>게시글 번호 : </label><span th:text="${post.postNo}"/><br/>
+    <label>작성자 : </label><span th:text="${post.userNo}"/><br/>
+    <label>작성일시 : </label><span th:text="${post.writeDateTime}"/><br/>
+    <div th:if="${post.modifierUserNo!=null}">
+        <label>수정자 : </label><span th:text="${post.modifierUserNo}"/><br/>
+        <label>수정일시 : </label><span th:text="${post.modifyDatetime}"/><br/>
+    </div>
+</fieldset>
+<br/>
+<fieldset>
+    <legend>본문</legend>
+    <div stype="white-space:pre-wrap" th:text="${post.postContent}"></div>
+</fieldset>
+
+<!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
+</body>
+</html>

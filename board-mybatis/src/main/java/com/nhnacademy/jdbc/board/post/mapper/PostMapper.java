@@ -15,4 +15,7 @@ public interface PostMapper {
     int insertPost(Post post);
     int updatePostByNo(@Param("post") Post post);
     int deleteByNo(@Param("no") int no);
+    List<Post> selectDeletedPosts();
+    int restoreDeletedPost(@Param("deletedPostNo") int deletedPostNo);
+    Optional<Post> selectDeletedPost(@Param("deletedPostNo") int deletedPostNo);
 }

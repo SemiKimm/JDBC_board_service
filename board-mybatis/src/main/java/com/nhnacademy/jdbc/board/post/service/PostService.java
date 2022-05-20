@@ -13,4 +13,7 @@ public interface PostService {
     int deletePost(int postNo);
     int updatePost(Post post);
     int getLastPageSize();
+    List<Post> getDeletedPosts();
+    int restorePost(int deletedPostNo);
+    Optional<Post> getDeletedPost(int deletedPostNo);
 }

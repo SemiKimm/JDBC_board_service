@@ -39,7 +39,26 @@
             where post_no = #{post.postNo}
     </update>
 
-    <delete id="deleteByNo">
+    <update id="deleteByNo">
         update post set is_delete = true where post_no = #{no}
-    </delete>
+    </update>
+
+    <select id="selectDeletedPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
+        select post_no, post_title, post_content, write_datetime, reply_order, user_no,modifier_user_no, board_type_code, parent_post_no, top_post_no
+        from post
+        where is_delete = true
+    </select>
+
+    <update id="restoreDeletedPost">
+        update post
+        set is_delete = false
+        where post_no = #{deletedPostNo}
+    </update>
+
+    <select id="selectDeletedPost" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
+        select post_no, post_title, post_content, write_datetime, reply_order, user_no, board_type_code, parent_post_no, top_post_no, modifier_user_no,modify_datetime
+        from post
+        where post_no = #{deletedPostNo}
+
+    </select>
 </mapper>

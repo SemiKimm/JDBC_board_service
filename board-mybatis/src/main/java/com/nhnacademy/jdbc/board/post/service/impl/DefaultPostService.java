@@ -68,4 +68,19 @@ public class DefaultPostService implements PostService {
     public int deletePost(int postNo) {
         return postMapper.deleteByNo(postNo);
     }
+
+    @Override
+    public List<Post> getDeletedPosts() {
+        return postMapper.selectDeletedPosts();
+    }
+
+    @Override
+    public int restorePost(int deletedPostNo) {
+        return postMapper.restoreDeletedPost(deletedPostNo);
+    }
+
+    @Override
+    public Optional<Post> getDeletedPost(int deletedPostNo) {
+        return postMapper.selectDeletedPost(deletedPostNo);
+    }
 }

@@ -18,28 +18,25 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="post : ${posts}">
+    <tr th:each="post : ${deletedPostList}">
         <td th:text="${post.postNo}"></td>
         <td>
-            <a th:href="@{/post/postView(no=${post.postNo})}" th:text="${post.postTitle}"/>
+            <a th:href="@{/post/deletedPost/viewDeletedPost(deletedPostNo=${post.postNo})}" th:text="${post.postTitle}"/>
         </td>
         <td th:text="${post.userNo}"></td>
         <td th:text="${post.modifierUserNo}"></td>
         <td th:text="${post.writeDateTime}"></td>
         <td>0</td>
-<!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
+        <td>
+            <a th:href="@{/post/deletedPost/restorePost(deletedPostNo=${post.postNo})}" th:text="복구"/>
+        </td>
+        <!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
     </tr>
     </tbody>
 </table>
 <br/>
 <!--페이지 구현 한 화면에 15개씩 뿌려준다는 가정하에-->
-<span th:each="page:${#numbers.sequence(1,lastPage)}">
-    <a th:href="@{/post/list(page=${page})}" class="btn" th:text="${' ['+page+'] '}"></a>
-</span>
 <br/>
-<a href="/post/register" class="btn">게시글 등록</a>
-<div th:if="${userTypeCode} == 1">
-    <a href="/post/deletedPost" class="btn">삭제된 게시글 보기</a>
-</div>
+<a th:href="@{/post/list}">게시판으로 돌아가기</a>
 </body>
 </html>
