@@ -59,10 +59,12 @@ public class PostController {
         mv.addObject("posts", pagePostList);
         mv.setViewName("post/postList");
         HttpSession session = request.getSession(false);
-        int writerNo = (int) session.getAttribute("no");
-        userService.getUserByNo(writerNo).ifPresent(s->{
-            mv.addObject("userTypeCode",s.getUserTypeCode());}
-        );
+        if(Optional.ofNullable(session).isPresent() && Optional.ofNullable(session.getAttribute("no")).isPresent()){
+            int writerNo = (int) session.getAttribute("no");
+            userService.getUserByNo(writerNo).ifPresent(s->{
+                mv.addObject("userTypeCode",s.getUserTypeCode());}
+            );
+        }
         return mv;
     }
 
