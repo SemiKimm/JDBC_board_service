@@ -83,5 +83,4 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
                 .addPathPatterns("/**")
                 .excludePathPatterns("/","/logout","/login/*","/post/list/**","/post/list","/post/postView","/login");
     }
-
 }

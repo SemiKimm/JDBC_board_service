@@ -14,10 +14,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
     @Override //로그인한 사용자 는 전부 가능 +
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String requestURI = request.getRequestURI();
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("no") == null) {
             log.info("미인증 사용자 요청");
+            response.sendRedirect("/");
             return false;
         }
         return true;
