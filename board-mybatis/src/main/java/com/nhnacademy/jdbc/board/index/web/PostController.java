@@ -1,6 +1,7 @@
 package com.nhnacademy.jdbc.board.index.web;
 
 import com.nhnacademy.jdbc.board.post.domain.Post;
+import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import com.nhnacademy.jdbc.board.user.service.UserService;
 import java.util.List;
@@ -37,7 +38,7 @@ public class PostController {
                                           HttpServletRequest request,
                                     Model model) {
         int lastPage = postService.getLastPageSize(20);
-        List<Post> pagePostList = postService.getPagePosts(page, 20);
+        List<PostListDTO> pagePostList = postService.getPagePosts(page, 20);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("posts", pagePostList);
         HttpSession session = request.getSession(false);

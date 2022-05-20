@@ -1,6 +1,7 @@
 package com.nhnacademy.jdbc.board.post.service.impl;
 
 import com.nhnacademy.jdbc.board.post.domain.Post;
+import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import com.nhnacademy.jdbc.board.post.mapper.PostMapper;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import java.sql.Timestamp;
@@ -24,22 +25,28 @@ public class DefaultPostService implements PostService {
 
     @Override
     public int getLastPageSize(int postLimit) {
-        int postsSize = getPosts().size();
+        int postsSize = getPostNumbers().size();
         if (postsSize % postLimit > 0) {
             return postsSize / postLimit + 1;
         }
         return postsSize / postLimit;
     }
 
+//    @Override
+//    public List<Post> getPagePosts(int page, int postLimit) {
+//        int offset = (page - 1) * postLimit;
+//        return postMapper.selectPagePosts(postLimit, offset);
+//    }
+
     @Override
-    public List<Post> getPagePosts(int page, int postLimit) {
+    public List<PostListDTO> getPagePosts(int page, int postLimit) {
         int offset = (page - 1) * postLimit;
-        return postMapper.selectPagePosts(postLimit, offset);
+        return postMapper.selectPostList(postLimit, offset);
     }
 
     @Override
-    public List<Post> getPosts() {
-        return postMapper.selectPosts();
+    public List<Integer> getPostNumbers() {
+        return postMapper.selectPostNumbers();
     }
 
     @Override
@@ -65,7 +72,7 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
-    public List<Post> getDeletedPosts() {
+    public List<PostListDTO> getDeletedPosts() {
         return postMapper.selectDeletedPosts();
     }
 

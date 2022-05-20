@@ -23,10 +23,10 @@
         <td>
             <a th:href="@{/post/deletedPost/viewDeletedPost(deletedPostNo=${post.postNo})}" th:text="${post.postTitle}"/>
         </td>
-        <td th:text="${post.userNo}"></td>
-        <td th:text="${post.modifierUserNo}"></td>
-        <td th:text="${post.writeDateTime}"></td>
-        <td>0</td>
+        <td th:text="${post.userNickname}"></td>
+        <td th:text="${post.modifierUserNickname}"></td>
+        <td th:text="${post.writeDatetime}"></td>
+        <td th:text="${post.commentCount}"></td>
         <td>
             <a th:href="@{/post/deletedPost/restorePost(deletedPostNo=${post.postNo})}" th:text="복구"/>
         </td>

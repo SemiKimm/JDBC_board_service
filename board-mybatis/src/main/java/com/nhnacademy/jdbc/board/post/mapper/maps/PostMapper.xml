@@ -10,13 +10,39 @@
         where post_no = #{no} and is_delete = false
     </select>
 
-    <select id="selectPagePosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
+    <select id="selectPostList" resultType="com.nhnacademy.jdbc.board.post.dto.PostListDTO">
+        select P.post_no
+             , post_title
+             , P.user_no
+             , P.modifier_user_no
+             , W.user_nickname
+             , M.user_nickname as modifer_user_nickname
+             , write_datetime
+             , C.comment_count
+             , reply_order
+             , parent_post_no
+             , top_post_no
+        from post P
+                 left outer join
+             (select post_no, count(*) as comment_count
+              from comment
+              group by (post_no)) C
+             on P.post_no = C.post_no
+                 inner join user W
+                            on P.user_no = W.user_no
+                 left outer join user M
+                                 on P.modifier_user_no = M.user_no
+        where is_delete = false
+        order by post_no desc limit #{pageLimit} offset #{pageOffset}
+    </select>
+
+    <select id="selectPagePosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post"> -- join 안쓴 post list 쓰던거 (comment count 안나오는거)
         select post_no, post_title, post_content, write_datetime, reply_order, user_no,modifier_user_no, board_type_code, parent_post_no, top_post_no
         from post where is_delete = false limit #{pageLimit} offset #{pageOffset}
     </select>
 
-    <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
-        select post_no, post_title, post_content, write_datetime, reply_order, user_no,modifier_user_no, board_type_code, parent_post_no, top_post_no
+    <select id="selectPostNumbers" resultType="java.lang.Integer">
+        select post_no
         from post where is_delete = false
     </select>
 
@@ -38,10 +64,30 @@
         update post set is_delete = true where post_no = #{no}
     </update>
 
-    <select id="selectDeletedPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
-        select post_no, post_title, post_content, write_datetime, reply_order, user_no,modifier_user_no, board_type_code, parent_post_no, top_post_no
-        from post
+    <select id="selectDeletedPosts" resultType="com.nhnacademy.jdbc.board.post.dto.PostListDTO">
+        select P.post_no
+             , post_title
+             , P.user_no
+             , P.modifier_user_no
+             , W.user_nickname
+             , M.user_nickname as modifer_user_nickname
+             , write_datetime
+             , C.comment_count
+             , reply_order
+             , parent_post_no
+             , top_post_no
+        from post P
+                 left outer join
+             (select post_no, count(*) as comment_count
+              from comment
+              group by (post_no)) C
+             on P.post_no = C.post_no
+                 inner join user W
+                            on P.user_no = W.user_no
+                 left outer join user M
+                                 on P.modifier_user_no = M.user_no
         where is_delete = true
+        order by post_no desc
     </select>
 
     <update id="restoreDeletedPost">

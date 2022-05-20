@@ -26,10 +26,10 @@
         <td>
             <a th:href="@{/post/postView(no=${post.postNo})}" th:text="${post.postTitle}"/>
         </td>
-        <td th:text="${post.userNo}"></td>
-        <td th:text="${post.modifierUserNo}"></td>
-        <td th:text="${post.writeDateTime}"></td>
-        <td>0</td>
+        <td th:text="${post.userNickname}"></td>
+        <td th:text="${post.modifierUserNickname}"></td>
+        <td th:text="${post.writeDatetime}"></td>
+        <td th:text="${post.commentCount}"></td>
 <!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
     </tr>
     </tbody>
