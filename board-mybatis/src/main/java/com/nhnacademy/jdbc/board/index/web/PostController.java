@@ -4,6 +4,8 @@ import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import com.nhnacademy.jdbc.board.user.service.UserService;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -36,10 +38,14 @@ public class PostController {
         mv.addObject("posts", firstPagePostList);
         mv.setViewName("post/postList");
         HttpSession session = request.getSession(false);
-        int writerNo = (int) session.getAttribute("no");
-        userService.getUserByNo(writerNo).ifPresent(s->{
-            mv.addObject("userTypeCode",s.getUserTypeCode());}
-        );
+        Integer userTypeCode = null;
+        if(Optional.ofNullable(session).isPresent() && Optional.ofNullable(session.getAttribute("no")).isPresent()){
+            int writerNo = (int) session.getAttribute("no");
+            if(userService.getUserByNo(writerNo).isPresent()){
+                userTypeCode = userService.getUserByNo(writerNo).get().getUserTypeCode();
+            }
+        }
+        mv.addObject("userTypeCode",userTypeCode);
         return mv;
     }
 

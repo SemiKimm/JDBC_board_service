@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Objects;
+
 @Slf4j
 @Controller
 @RequestMapping("post/postView")
@@ -28,7 +31,10 @@ public class PostViewController {
     public ModelAndView viewPage(@RequestParam("no") int no,
                                  HttpServletRequest request){
         HttpSession session = request.getSession(false);
-        int loginUserNo = (int) session.getAttribute("no");
+        Integer loginUserNo = null;
+        if(Objects.nonNull(session) &&Objects.nonNull(session.getAttribute("no"))){
+            loginUserNo = (int) session.getAttribute("no");
+        }
         ModelAndView mv = new ModelAndView();
         postService.getPost(no).ifPresent(post->{
             post.setPostContent(post.getPostContent().replace("\n","<br/>"));
