@@ -4,7 +4,6 @@ import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import com.nhnacademy.jdbc.board.user.service.UserService;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/post")
 public class PostController {
-    //    @GetMapping
-//    public String
     private final PostService postService;
     private final UserService userService;
 
@@ -30,39 +27,28 @@ public class PostController {
     }
 
     @GetMapping("/list")
-    public ModelAndView viewPostListFirstPage(HttpServletRequest request) {
+    public ModelAndView viewPostListFirstPage() {
         ModelAndView mv = new ModelAndView();
-        int lastPage = postService.getLastPageSize();
-        List<Post> firstPagePostList = postService.getFirstPagePosts();
-        mv.addObject("lastPage", lastPage);
-        mv.addObject("posts", firstPagePostList);
-        mv.setViewName("post/postList");
-        HttpSession session = request.getSession(false);
-        Integer userTypeCode = null;
-        if(Optional.ofNullable(session).isPresent() && Optional.ofNullable(session.getAttribute("no")).isPresent()){
-            int writerNo = (int) session.getAttribute("no");
-            if(userService.getUserByNo(writerNo).isPresent()){
-                userTypeCode = userService.getUserByNo(writerNo).get().getUserTypeCode();
-            }
-        }
-        mv.addObject("userTypeCode",userTypeCode);
+        mv.setViewName("redirect:/post/list?page=" + 1);
         return mv;
     }
 
-    @GetMapping(value= "/list", params = "page")
+    @GetMapping(value = "/list", params = "page")
     public ModelAndView viewPostListPages(@RequestParam("page") int page,
                                           HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-        int lastPage = postService.getLastPageSize();
-        List<Post> pagePostList = postService.getPagePosts(page);
+        int lastPage = postService.getLastPageSize(20);
+        List<Post> pagePostList = postService.getPagePosts(page, 20);
         mv.addObject("lastPage", lastPage);
         mv.addObject("posts", pagePostList);
         mv.setViewName("post/postList");
         HttpSession session = request.getSession(false);
-        if(Optional.ofNullable(session).isPresent() && Optional.ofNullable(session.getAttribute("no")).isPresent()){
+        if (Optional.ofNullable(session).isPresent() &&
+            Optional.ofNullable(session.getAttribute("no")).isPresent()) {
             int writerNo = (int) session.getAttribute("no");
-            userService.getUserByNo(writerNo).ifPresent(s->{
-                mv.addObject("userTypeCode",s.getUserTypeCode());}
+            userService.getUserByNo(writerNo).ifPresent(s -> {
+                    mv.addObject("userTypeCode", s.getUserTypeCode());
+                }
             );
         }
         return mv;

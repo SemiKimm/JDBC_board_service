@@ -23,23 +23,18 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
-    public int getLastPageSize() {
+    public int getLastPageSize(int postLimit) {
         int postsSize = getPosts().size();
-        if (postsSize % 15 > 0) {
-            return postsSize / 15 + 1;
+        if (postsSize % postLimit > 0) {
+            return postsSize / postLimit + 1;
         }
-        return postsSize / 15;
+        return postsSize / postLimit;
     }
 
     @Override
-    public List<Post> getPagePosts(int page) {
-        int tmp = (page-1)*15;
-        return postMapper.selectPagePosts(tmp);
-    }
-
-    @Override
-    public List<Post> getFirstPagePosts() {
-        return postMapper.selectFirstPagePosts();
+    public List<Post> getPagePosts(int page, int postLimit) {
+        int offset = (page - 1) * postLimit;
+        return postMapper.selectPagePosts(postLimit, offset);
     }
 
     @Override

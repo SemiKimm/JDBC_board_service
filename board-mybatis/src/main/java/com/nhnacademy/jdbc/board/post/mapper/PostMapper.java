@@ -9,8 +9,8 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface PostMapper {
     Optional<Post> selectPost(@Param("no") int no);
-    List<Post> selectFirstPagePosts();
-    List<Post> selectPagePosts(@Param("page") int page);
+    List<Post> selectPagePosts(@Param("pageLimit") int pageLimit,
+                               @Param("pageOffset") int pageOffset);
     List<Post> selectPosts();
     int insertPost(Post post);
     int updatePostByNo(@Param("post") Post post);

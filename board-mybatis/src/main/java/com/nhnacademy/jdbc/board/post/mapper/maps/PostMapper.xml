@@ -12,12 +12,7 @@
 
     <select id="selectPagePosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
         select post_no, post_title, post_content, write_datetime, reply_order, user_no,modifier_user_no, board_type_code, parent_post_no, top_post_no
-        from post where is_delete = false limit 15 offset #{page}
-    </select>
-
-    <select id="selectFirstPagePosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
-        select post_no, post_title, post_content, write_datetime, reply_order, user_no,modifier_user_no, board_type_code, parent_post_no, top_post_no
-        from post where is_delete = false limit 15
+        from post where is_delete = false limit #{pageLimit} offset #{pageOffset}
     </select>
 
     <select id="selectPosts" resultType="com.nhnacademy.jdbc.board.post.domain.Post">
