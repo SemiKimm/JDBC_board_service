@@ -26,12 +26,12 @@ public class PostGoodController {
     }
 
     @GetMapping
-    public String isUserGoodToPost(@RequestParam(required=false, name = "postNo") Integer postNo,
+    public String isUserGoodToPost(@RequestParam(required=false, name = "postNo") int postNo,
                                    HttpServletRequest request,
                                    Model model){
-        if (postNo == null){
-            throw new RuntimeException();
-        }
+//        if (postNo == null){
+//            throw new RuntimeException();
+//        }
         HttpSession session = request.getSession(false);
         int userNo =  (int) session.getAttribute("no");
         model.addAttribute("goodCount",goodService.getGoodCount(postNo));
