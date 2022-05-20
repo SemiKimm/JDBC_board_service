@@ -7,13 +7,15 @@
 <body>
 <form method="post" th:action="@{/post/register}">
     <label>
-        제목
-    </label>
-    <input type="text" name="postTitle" placeholder="제목을 입력하세요."/>
+        제목<br />
+        <input type="text" name="postTitle" placeholder="제목을 입력하세요."/>
+    </label><br />
+
     <label>
-        내용
+        내용 <br />
+        <textarea name="postContent" rows="10" cols="80"></textarea>
     </label>
-    <textarea name="postContent" rows="10" cols="80"></textarea>
+
     <br/>
     <input type="submit" value="저장">
 </form>
