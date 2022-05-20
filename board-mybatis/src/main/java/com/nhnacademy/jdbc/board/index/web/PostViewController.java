@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,22 +29,39 @@ public class PostViewController {
     }
 
     @GetMapping
-    public ModelAndView viewPage(@RequestParam("no") int no,
-                                 HttpServletRequest request){
+    public String viewPage(@RequestParam("no") int no,
+                           HttpServletRequest request,
+                           Model model){
         HttpSession session = request.getSession(false);
         Integer loginUserNo = null;
         if(Objects.nonNull(session) &&Objects.nonNull(session.getAttribute("no"))){
             loginUserNo = (int) session.getAttribute("no");
         }
-        ModelAndView mv = new ModelAndView();
         postService.getPost(no).ifPresent(post->{
             post.setPostContent(post.getPostContent().replace("\n","<br/>"));
-            mv.addObject("post",post);
+            model.addAttribute("post",post);
         });
-        mv.addObject("comments",commentService.getComments(no));
-        mv.addObject("loginUserNo",loginUserNo);
-        mv.setViewName("post/postView");
-        return mv;
+        model.addAttribute("comments",commentService.getComments(no));
+        model.addAttribute("loginUserNo",loginUserNo);
+        return "post/postView";
+    }
+
+    @GetMapping("/likeUpdate")
+    public String likeUpdate(@RequestParam("postNo") int no,
+                             HttpServletRequest request,
+                             Model model){
+        HttpSession session = request.getSession(false);
+        Integer loginUserNo = null;
+        if(Objects.nonNull(session) &&Objects.nonNull(session.getAttribute("no"))){
+            loginUserNo = (int) session.getAttribute("no");
+        }
+        postService.getPost(no).ifPresent(post->{
+            post.setPostContent(post.getPostContent().replace("\n","<br/>"));
+            model.addAttribute("post",post);
+        });
+        model.addAttribute("comments",commentService.getComments(no));
+        model.addAttribute("loginUserNo",loginUserNo);
+        return "post/postView";
     }
 
 }

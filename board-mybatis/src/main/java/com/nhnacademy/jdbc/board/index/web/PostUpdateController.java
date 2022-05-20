@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,36 +27,34 @@ public class PostUpdateController {
     }
 
     @GetMapping("/post/update")
-    public ModelAndView updatePostForm(@RequestParam("postNo") int postNo,
-                                       HttpServletRequest request) {
+    public String updatePostForm(@RequestParam("postNo") int postNo,
+                                 HttpServletRequest request,
+                                 Model model) {
         HttpSession session = request.getSession(false);
         int userNo = (int) session.getAttribute("no");
 
         User user = userService.getUserByNo(userNo).get();
         Post post = postService.getPost(postNo).get();
 
-        ModelAndView mv = new ModelAndView();
         if (userNo == post.getUserNo() || user.getUserTypeCode() == 1) {
-            mv.addObject("post", post);
-            mv.setViewName("post/postUpdateForm");
+            model.addAttribute("post", post);
+            return "post/postUpdateForm";
         } else {
-            mv.setViewName("redirect:/post/postView?no=" + postNo);
+            return "redirect:/post/postView?no=" + postNo;
         }
-        return mv;
     }
 
     @PostMapping("/post/update")
-    public ModelAndView doUpdatePost(@RequestParam("no") int postNo,
-                                     @RequestParam("postTitle") String postTitle,
-                                     @RequestParam("postContent") String postContent,
-                                     HttpServletRequest request) {
+    public String doUpdatePost(@RequestParam("no") int postNo,
+                               @RequestParam("postTitle") String postTitle,
+                               @RequestParam("postContent") String postContent,
+                               HttpServletRequest request,
+                               Model model) {
         HttpSession session = request.getSession(false);
         int userNo = (int) session.getAttribute("no");
 
         User user = userService.getUserByNo(userNo).get();
         Post post = postService.getPost(postNo).get();
-
-        ModelAndView mv = new ModelAndView();
 
         if (userNo == post.getUserNo() || user.getUserTypeCode() == 1) {
             post.setPostTitle(postTitle);
@@ -63,10 +62,9 @@ public class PostUpdateController {
             post.setModifierUserNo(userNo);
             post.setModifyDatetime(new Timestamp(new Date().getTime()));
             postService.updatePost(post);
-            mv.setViewName("redirect:/post/postView?no=" + postNo);
+            return "redirect:/post/postView?no=" + postNo;
         } else {
-            mv.setViewName("redirect:/post/postView?no=" + postNo);
+            return "redirect:/post/postView?no=" + postNo;
         }
-        return mv;
     }
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,31 +28,28 @@ public class PostController {
     }
 
     @GetMapping("/list")
-    public ModelAndView viewPostListFirstPage() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("redirect:/post/list?page=" + 1);
-        return mv;
+    public String viewPostListFirstPage(Model model) {
+        return "redirect:/post/list?page=" + 1;
     }
 
     @GetMapping(value = "/list", params = "page")
-    public ModelAndView viewPostListPages(@RequestParam("page") int page,
-                                          HttpServletRequest request) {
-        ModelAndView mv = new ModelAndView();
+    public String viewPostListPages(@RequestParam("page") int page,
+                                          HttpServletRequest request,
+                                    Model model) {
         int lastPage = postService.getLastPageSize(20);
         List<Post> pagePostList = postService.getPagePosts(page, 20);
-        mv.addObject("lastPage", lastPage);
-        mv.addObject("posts", pagePostList);
-        mv.setViewName("post/postList");
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("posts", pagePostList);
         HttpSession session = request.getSession(false);
         if (Optional.ofNullable(session).isPresent() &&
             Optional.ofNullable(session.getAttribute("no")).isPresent()) {
             int writerNo = (int) session.getAttribute("no");
             userService.getUserByNo(writerNo).ifPresent(s -> {
-                    mv.addObject("userTypeCode", s.getUserTypeCode());
+                model.addAttribute("userTypeCode", s.getUserTypeCode());
                 }
             );
         }
-        return mv;
+        return "post/postList";
     }
 
     @GetMapping("/register")
