@@ -25,27 +25,28 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
-    public List<PostListDTO> getPagePostList(String keywordCookie, int page, int pageLimit) {
+    public List<PostListDTO> getPagePostList(String searchKeyword, Integer page, int pageLimit) {
+        if(Objects.isNull(page)){
+            page = 1;
+        }
         int offset = (page - 1) * pageLimit;
-        if (Objects.nonNull(keywordCookie) && !keywordCookie.isEmpty()) {
-            return postMapper.selectPostListByTitle('%' + keywordCookie + '%', pageLimit, offset);
+        if (Objects.nonNull(searchKeyword) && !searchKeyword.isEmpty()) {
+            return postMapper.selectPostListByTitle('%' + searchKeyword + '%', pageLimit, offset);
         } else {
             return postMapper.selectPostList(pageLimit, offset);
         }
     }
 
     @Override
-    public int getLastPageSize(int postLimit) {
-        int postsSize = getPostNumbers().size();
-        if (postsSize % postLimit > 0) {
-            return postsSize / postLimit + 1;
+    public int getLastPageSize(int postLimit, String searchKeyword) {
+        int postsSize = 0;
+        if(Objects.isNull(searchKeyword)){
+            postsSize = postMapper.selectPostNumbers();
+        }else{
+            postsSize = postMapper.selectPostNumbersByTitle(searchKeyword);
         }
-        return postsSize / postLimit;
-    }
 
-    @Override
-    public List<Integer> getPostNumbers() {
-        return postMapper.selectPostNumbers();
+        return calculatePageSize(postsSize, postLimit);
     }
 
     @Override
@@ -92,5 +93,17 @@ public class DefaultPostService implements PostService {
         }
         int offset = (page - 1) * pageLimit;
         return postMapper.selectGoodPostList(loginUserNo, pageLimit, offset);
+    }
+
+    @Override
+    public int getGoodPostsLastPageSize(int loginUserNo, int postLimit) {
+        return calculatePageSize(postMapper.selectGoodPostsSize(loginUserNo), postLimit);
+    }
+
+    private int calculatePageSize(int postsSize, int postLimit){
+        if (postsSize % postLimit > 0) {
+            return postsSize / postLimit + 1;
+        }
+        return postsSize / postLimit;
     }
 }

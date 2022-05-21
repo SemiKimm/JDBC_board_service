@@ -6,16 +6,17 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
-    List<Integer> getPostNumbers();
     Optional<Post> getPost(int no);
     int registerPost(int writerNo, String title, String content);
     int deletePost(int postNo);
     int updatePost(Post post);
-    int getLastPageSize(int postLimit);
+    int getLastPageSize(int postLimit, String searchKeyword);
     List<PostListDTO> getDeletedPosts();
     int restorePost(int deletedPostNo);
     Optional<Post> getDeletedPost(int deletedPostNo);
-    List<PostListDTO> getPagePostList(String keywordCookie, int page, int pageLimit);
+    List<PostListDTO> getPagePostList(String keywordCookie, Integer page, int pageLimit);
 
     List<PostListDTO> getGoodPostList(int loginUserNo, Integer page, int pageLimit);
+
+    int getGoodPostsLastPageSize(int loginUserNo, int postLimit);
 }

@@ -37,8 +37,18 @@
     </select>
 
     <select id="selectPostNumbers" resultType="java.lang.Integer">
-        select post_no
+        select count(*)
         from post where is_delete = false
+    </select>
+
+    <select id="selectPostNumbersByTitle" resultType="java.lang.Integer">
+        select count(*)
+        from post where post_title = #{searchKeyword}
+    </select>
+
+    <select id="selectGoodPostsSize" resultType="java.lang.Integer">
+        select count(*)
+        from good where user_no = #{loginUserNo}
     </select>
 
 <!--    답글용이랑 본글용이랑 insert 따로 만들어야 될듯-->
@@ -120,7 +130,7 @@
                             on P.user_no = W.user_no
                  left outer join user M
                                  on P.modifier_user_no = M.user_no
-        where is_delete = false and post_title like #{keywordCookie}
+        where is_delete = false and post_title like #{searchKeyword}
         order by post_no desc limit #{pageLimit} offset #{pageOffset}
     </select>
 
