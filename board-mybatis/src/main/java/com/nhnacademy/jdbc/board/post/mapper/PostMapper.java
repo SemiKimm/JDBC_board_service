@@ -21,4 +21,8 @@ public interface PostMapper {
     List<PostListDTO> selectDeletedPosts();
     int restoreDeletedPost(@Param("deletedPostNo") int deletedPostNo);
     Optional<Post> selectDeletedPost(@Param("deletedPostNo") int deletedPostNo);
+
+    List<PostListDTO> selectPostListByTitle(@Param("keywordCookie") String keywordCookie,
+                                            @Param("pageLimit") int pageLimit,
+                                            @Param("pageOffset") int offset);
 }

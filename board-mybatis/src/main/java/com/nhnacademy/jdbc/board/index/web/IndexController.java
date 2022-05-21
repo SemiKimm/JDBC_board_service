@@ -1,8 +1,10 @@
 package com.nhnacademy.jdbc.board.index.web;
 
 import com.nhnacademy.jdbc.board.user.service.UserService;
+import com.nhnacademy.jdbc.board.utils.CookieUtils;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,12 +35,14 @@ public class IndexController {
 
     @GetMapping("logout")
     public String index(@RequestParam("login") boolean login,
-                        HttpServletRequest request) {
+                        HttpServletRequest request,
+                        HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         if (Optional.ofNullable(session).isPresent() &&
             Optional.ofNullable(session.getAttribute("no")).isPresent() && !login) {
             session.removeAttribute("no");
         }
+        CookieUtils.deleteKeywordCookie(request,response);
         return "/index/index";
     }
 }

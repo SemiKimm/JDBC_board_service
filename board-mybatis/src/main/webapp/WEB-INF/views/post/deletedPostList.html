@@ -30,12 +30,10 @@
         <td>
             <a th:href="@{/post/deletedPost/restorePost(deletedPostNo=${post.postNo})}" th:text="복구"/>
         </td>
-        <!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
     </tr>
     </tbody>
 </table>
 <br/>
-<!--페이지 구현 한 화면에 15개씩 뿌려준다는 가정하에-->
 <br/>
 <a th:href="@{/post/list}">게시판으로 돌아가기</a>
 </body>

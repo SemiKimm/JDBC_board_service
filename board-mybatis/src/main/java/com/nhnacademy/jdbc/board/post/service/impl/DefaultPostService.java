@@ -7,6 +7,7 @@ import com.nhnacademy.jdbc.board.post.service.PostService;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -24,24 +25,22 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
+    public List<PostListDTO> getPagePostList(String keywordCookie, int page, int pageLimit) {
+        int offset = (page - 1) * pageLimit;
+        if (Objects.nonNull(keywordCookie) && !keywordCookie.isEmpty()) {
+            return postMapper.selectPostListByTitle('%' + keywordCookie + '%', pageLimit, offset);
+        } else {
+            return postMapper.selectPostList(pageLimit, offset);
+        }
+    }
+
+    @Override
     public int getLastPageSize(int postLimit) {
         int postsSize = getPostNumbers().size();
         if (postsSize % postLimit > 0) {
             return postsSize / postLimit + 1;
         }
         return postsSize / postLimit;
-    }
-
-//    @Override
-//    public List<Post> getPagePosts(int page, int postLimit) {
-//        int offset = (page - 1) * postLimit;
-//        return postMapper.selectPagePosts(postLimit, offset);
-//    }
-
-    @Override
-    public List<PostListDTO> getPagePosts(int page, int postLimit) {
-        int offset = (page - 1) * postLimit;
-        return postMapper.selectPostList(postLimit, offset);
     }
 
     @Override

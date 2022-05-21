@@ -6,9 +6,14 @@
 </head>
 <body>
 <h1>게시글 목록</h1>
-<td>
+<div>
     <a th:href="@{/}">메인페이지가기</a>
-</td>
+    <a th:href="@{/post/list/search/all}">전체보기</a>
+    <form method="post" th:action="@{/post/list/search}">
+        <input type="text" name="searchKeyword" placeholder="검색할 제목을 입력하세요."/>
+        <input type="submit" value="검색"/>
+    </form>
+</div>
 <table>
     <thead>
     <tr>
@@ -30,12 +35,10 @@
         <td th:text="${post.modifierUserNickname}"></td>
         <td th:text="${post.writeDatetime}"></td>
         <td th:text="${post.commentCount}"></td>
-<!--       todo: 댓글 수 해줘야되고 사용자 번호가 아니라 join 해서 이름가져와야됨 dto 만들어야지-->
     </tr>
     </tbody>
 </table>
 <br/>
-<!--페이지 구현 한 화면에 15개씩 뿌려준다는 가정하에-->
 <span th:each="page:${#numbers.sequence(1,lastPage)}">
     <a th:href="@{/post/list(page=${page})}" class="btn" th:text="${' ['+page+'] '}"></a>
 </span>
