@@ -13,13 +13,14 @@ public class PostListDTO {
     private String modifierUserNickname;
     private final Date writeDatetime;
     private Integer commentCount;
+    private Integer viewCount;
     private Integer replyOrder;
     private Integer parentPostNo;
     private Integer topPostNo;
 
     public PostListDTO(int postNo, String postTitle, int userNo, Integer modifierUserNo,
                        String userNickname, String modifierUserNickname, Date writeDatetime,
-                       Integer commentCount, Integer replyOrder, Integer parentPostNo,
+                       Integer commentCount,Integer viewCount, Integer replyOrder, Integer parentPostNo,
                        Integer topPostNo) {
         this.postNo = postNo;
         this.postTitle = postTitle;
@@ -29,6 +30,7 @@ public class PostListDTO {
         this.modifierUserNickname = modifierUserNickname;
         this.writeDatetime = writeDatetime;
         this.commentCount = commentCount;
+        this.viewCount = viewCount;
         this.replyOrder = replyOrder;
         this.parentPostNo = parentPostNo;
         this.topPostNo = topPostNo;

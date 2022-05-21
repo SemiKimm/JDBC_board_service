@@ -4,6 +4,7 @@ import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
 
 public interface PostService {
     Optional<Post> getPost(int no);
@@ -19,4 +20,6 @@ public interface PostService {
     List<PostListDTO> getGoodPostList(int loginUserNo, Integer page, int pageLimit);
 
     int getGoodPostsLastPageSize(int loginUserNo, int postLimit);
+
+    boolean addViewCount(int loginUserNo, int postNo);
 }

@@ -29,4 +29,8 @@ public interface PostMapper {
     List<PostListDTO> selectGoodPostList(@Param("loginUserNo") int loginUserNo,
                                          @Param("pageLimit") int pageLimit,
                                          @Param("pageOffset") int pageOffset);
+    Integer selectViewCountByUser(@Param("loginUserNo") int loginUserNo,
+                                  @Param("postNo") int postNo);
+
+    void insertView(@Param("loginUserNo") int loginUserNo,@Param("postNo") int postNo);
 }

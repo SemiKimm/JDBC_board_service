@@ -33,13 +33,14 @@ public class PostViewController {
     }
 
     @GetMapping
-    public String viewPage(@RequestParam("no") int no,
+    public String viewPage(@RequestParam("no") int no,//fixme : 이 no가 postNo 맞는지 다시 확인하고 변수명 바꾸기
                            HttpServletRequest request,
                            Model model){
         HttpSession session = request.getSession(false);
         Integer loginUserNo = null;
         if(Objects.nonNull(session) &&Objects.nonNull(session.getAttribute("no"))){
             loginUserNo = (int) session.getAttribute("no");
+            postService.addViewCount(loginUserNo, no);
         }
         postService.getPost(no).ifPresent(post->{
             post.setPostContent(post.getPostContent().replace("\n","<br/>"));

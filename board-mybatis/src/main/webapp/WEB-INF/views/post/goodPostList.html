@@ -9,10 +9,6 @@
 <div>
     <a th:href="@{/}">메인페이지가기</a>
     <a th:href="@{/post/list}">전체 게시글 보기</a>
-<!--    <form method="post" th:action="@{/post/list/search}">-->
-<!--        <input type="text" name="searchKeyword" placeholder="검색할 제목을 입력하세요."/>-->
-<!--        <input type="submit" value="검색"/>-->
-<!--    </form>-->
 </div>
 <table>
     <thead>
@@ -23,6 +19,7 @@
         <th>(수정자)</th>
         <th>작성일시</th>
         <th>댓글 개수</th>
+        <th>조회수</th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +32,7 @@
         <td th:text="${post.modifierUserNickname}"></td>
         <td th:text="${post.writeDatetime}"></td>
         <td th:text="${post.commentCount}"></td>
+        <td th:text="${post.viewCount}"></td>
     </tr>
     </tbody>
 </table>

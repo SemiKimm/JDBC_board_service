@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -105,5 +107,15 @@ public class DefaultPostService implements PostService {
             return postsSize / postLimit + 1;
         }
         return postsSize / postLimit;
+    }
+
+    @Override
+    public boolean addViewCount(int loginUserNo, int postNo) {
+        int isView = postMapper.selectViewCountByUser(loginUserNo, postNo);
+        if(isView!=0){
+            return false;
+        }
+        postMapper.insertView(loginUserNo, postNo);
+        return true;
     }
 }

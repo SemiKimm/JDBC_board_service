@@ -19,10 +19,16 @@
              , M.user_nickname as modifer_user_nickname
              , write_datetime
              , C.comment_count
+             , V.view_count
              , reply_order
              , parent_post_no
              , top_post_no
         from post P
+                 left outer join
+             (select post_no, count(*) as view_count
+              from view
+              group by (post_no)) V
+             on P.post_no = V.post_no
                  left outer join
              (select post_no, count(*) as comment_count
               from comment
@@ -51,6 +57,16 @@
         from good where user_no = #{loginUserNo}
     </select>
 
+    <select id="selectViewCountByUser" resultType="java.lang.Integer">
+        select count(*)
+        from view where user_no = #{loginUserNo} and post_No = #{postNo}
+    </select>
+
+    <insert id="insertView">
+        insert into view (user_no, post_no)
+        values (#{loginUserNo}, #{postNo});
+    </insert>
+
 <!--    답글용이랑 본글용이랑 insert 따로 만들어야 될듯-->
     <insert id="insertPost">
         insert into post(post_title, post_content, write_datetime, reply_order,
@@ -78,10 +94,16 @@
              , M.user_nickname as modifer_user_nickname
              , write_datetime
              , C.comment_count
+             , V.view_count
              , reply_order
              , parent_post_no
              , top_post_no
         from post P
+                 left outer join
+             (select post_no, count(*) as view_count
+              from view
+              group by (post_no)) V
+             on P.post_no = V.post_no
                  left outer join
              (select post_no, count(*) as comment_count
               from comment
@@ -117,10 +139,16 @@
              , M.user_nickname as modifer_user_nickname
              , write_datetime
              , C.comment_count
+             , V.view_count
              , reply_order
              , parent_post_no
              , top_post_no
         from post P
+                 left outer join
+             (select post_no, count(*) as view_count
+              from view
+              group by (post_no)) V
+             on P.post_no = V.post_no
                  left outer join
              (select post_no, count(*) as comment_count
               from comment
@@ -143,6 +171,7 @@
              , O.user_nickname as modifer_user_nickname
              , O.write_datetime
              , O.comment_count
+             , O.view_count
              , O.reply_order
              , O.parent_post_no
              , O.top_post_no
@@ -155,10 +184,16 @@
                                   , M.user_nickname as modifer_user_nickname
                                   , write_datetime
                                   , C.comment_count
+                                  , V.view_count
                                   , reply_order
                                   , parent_post_no
                                   , top_post_no
                              from post P
+                                      left outer join
+                                  (select post_no, count(*) as view_count
+                                   from view
+                                   group by (post_no)) V
+                                  on P.post_no = V.post_no
                                       left outer join (select post_no, count(*) as comment_count
                                                        from comment
                                                        group by (post_no)) C
