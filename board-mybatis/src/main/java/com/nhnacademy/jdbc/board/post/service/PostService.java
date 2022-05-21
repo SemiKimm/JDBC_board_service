@@ -16,4 +16,6 @@ public interface PostService {
     int restorePost(int deletedPostNo);
     Optional<Post> getDeletedPost(int deletedPostNo);
     List<PostListDTO> getPagePostList(String keywordCookie, int page, int pageLimit);
+
+    List<PostListDTO> getGoodPostList(int loginUserNo, Integer page, int pageLimit);
 }

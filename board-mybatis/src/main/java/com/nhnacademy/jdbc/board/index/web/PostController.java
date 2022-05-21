@@ -4,6 +4,8 @@ import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import com.nhnacademy.jdbc.board.user.service.UserService;
 import com.nhnacademy.jdbc.board.utils.CookieUtils;
+import com.nhnacademy.jdbc.board.utils.SessionUtils;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
@@ -47,13 +49,14 @@ public class PostController {
         model.addAttribute("posts", pagePostList);
 
         HttpSession session = request.getSession(false);
-        if (Optional.ofNullable(session).isPresent() &&
-            Optional.ofNullable(session.getAttribute("no")).isPresent()) {
+        if (SessionUtils.checkLogin(session)) {
             int writerNo = (int) session.getAttribute("no");
             userService.getUserByNo(writerNo).ifPresent(s -> {
                     model.addAttribute("userTypeCode", s.getUserTypeCode());
                 }
             );
+        }else{
+            model.addAttribute("userTypeCode", null);
         }
         return "post/postList";
     }
@@ -75,18 +78,40 @@ public class PostController {
         return "redirect:/post/list";
     }
 
+    @GetMapping("/list/good")
+    public String searchGoodPostList(@RequestParam(value = "page",required = false) Integer page,
+                                     HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     Model model){
+        List<PostListDTO> goodPostList = null;
+        int lastPage = 1;
+        HttpSession session = request.getSession(false);
+        if(SessionUtils.checkLogin(session)){
+            int loginUserNo = (int) session.getAttribute("no");
+            goodPostList = postService.getGoodPostList(loginUserNo, page, 20);
+            lastPage = postService.getLastPageSize(20);
+        }
+
+        model.addAttribute("posts",goodPostList);
+        model.addAttribute("lastPage", lastPage);
+
+        return "/post/goodPostList";
+    }
+
     @GetMapping("/register")
     public String registerPostForm() {
         return "post/postForm";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register") // fixme : 여기 충돌날듯
     public String doRegisterPost(@RequestParam("postTitle") String title,
                                  @RequestParam("postContent") String content,
                                  HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        int writerNo = (int) session.getAttribute("no");
-        postService.registerPost(writerNo, title, content);
+        if(SessionUtils.checkLogin(session)){
+            int writerNo = (int) session.getAttribute("no");
+            postService.registerPost(writerNo, title, content);
+        }
         return "redirect:/post/list";
     }
 }

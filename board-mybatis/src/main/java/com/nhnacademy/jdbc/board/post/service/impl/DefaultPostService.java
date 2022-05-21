@@ -84,4 +84,13 @@ public class DefaultPostService implements PostService {
     public Optional<Post> getDeletedPost(int deletedPostNo) {
         return postMapper.selectDeletedPost(deletedPostNo);
     }
+
+    @Override
+    public List<PostListDTO> getGoodPostList(int loginUserNo, Integer page, int pageLimit) {
+        if(Objects.isNull(page)){
+            return postMapper.selectGoodPostList(loginUserNo, pageLimit, 0);
+        }
+        int offset = (page - 1) * pageLimit;
+        return postMapper.selectGoodPostList(loginUserNo, pageLimit, offset);
+    }
 }
