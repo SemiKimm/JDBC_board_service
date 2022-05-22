@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
     private final UserService userService;
 
-    public LoginController(DefaultUserService defaultUserService) {
-        this.userService = defaultUserService;
+    public LoginController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
