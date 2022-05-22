@@ -9,17 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import com.nhnacademy.jdbc.board.comment.service.CommentService;
-import com.nhnacademy.jdbc.board.comment.service.impl.DefaultCommentService;
 import com.nhnacademy.jdbc.board.file.service.FileService;
-import com.nhnacademy.jdbc.board.file.service.impl.DefaultFileService;
 import com.nhnacademy.jdbc.board.good.service.GoodService;
-import com.nhnacademy.jdbc.board.good.service.impl.DefaultGoodService;
 import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
-import com.nhnacademy.jdbc.board.post.service.impl.DefaultPostService;
 import com.nhnacademy.jdbc.board.user.domain.User;
 import com.nhnacademy.jdbc.board.user.service.UserService;
-import com.nhnacademy.jdbc.board.user.service.impl.DefaultUserService;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
@@ -41,11 +36,11 @@ class PostViewControllerTest {
 
     @BeforeEach
     void setUp() {
-        postService = mock(DefaultPostService.class);
-        commentService = mock(DefaultCommentService.class);
-        goodService = mock(DefaultGoodService.class);
-        fileService = mock(DefaultFileService.class);
-        userService = mock(DefaultUserService.class);
+        postService = mock(PostService.class);
+        commentService = mock(CommentService.class);
+        goodService = mock(GoodService.class);
+        fileService = mock(FileService.class);
+        userService = mock(UserService.class);
         PostViewController postViewController = new PostViewController(
             postService, commentService, goodService, fileService, userService
         );

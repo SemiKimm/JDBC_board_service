@@ -13,10 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.service.PostService;
-import com.nhnacademy.jdbc.board.post.service.impl.DefaultPostService;
 import com.nhnacademy.jdbc.board.user.domain.User;
 import com.nhnacademy.jdbc.board.user.service.UserService;
-import com.nhnacademy.jdbc.board.user.service.impl.DefaultUserService;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
@@ -33,8 +31,8 @@ class PostUpdateControllerTest {
 
     @BeforeEach
     void setUp() {
-        postService = mock(DefaultPostService.class);
-        userService = mock(DefaultUserService.class);
+        postService = mock(PostService.class);
+        userService = mock(UserService.class);
         PostUpdateController postUpdateController =
             new PostUpdateController(postService, userService);
         mockMvc = MockMvcBuilders.standaloneSetup(postUpdateController).build();

@@ -4,7 +4,6 @@ import com.nhnacademy.jdbc.board.post.domain.Post;
 import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import java.util.List;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
 
 public interface PostService {
     Optional<Post> getPost(int no);
@@ -15,7 +14,7 @@ public interface PostService {
     List<PostListDTO> getDeletedPosts();
     int restorePost(int deletedPostNo);
     Optional<Post> getDeletedPost(int deletedPostNo);
-    List<PostListDTO> getPagePostList(String keywordCookie, Integer page, int pageLimit);
+    List<PostListDTO> getPagePostList(String searchKeyword, Integer page, int pageLimit);
 
     List<PostListDTO> getGoodPostList(int loginUserNo, Integer page, int pageLimit);
 

@@ -50,8 +50,8 @@ public class PostController {
         model.addAttribute("posts", pagePostList);
 
         if (SessionUtils.checkLogin(session)) {
-            int writerNo = (int) session.getAttribute("no");
-            userService.getUserByNo(writerNo).ifPresent(s -> {
+            int loginUserNo = (int) session.getAttribute("no");
+            userService.getUserByNo(loginUserNo).ifPresent(s -> {
                     model.addAttribute("userTypeCode", s.getUserTypeCode());
                 }
             );
@@ -79,7 +79,6 @@ public class PostController {
     @GetMapping("/list/good")
     public String viewGoodPostList(@RequestParam(value = "page",required = false) Integer page,
                                      HttpServletRequest request,
-                                     HttpServletResponse response,
                                      Model model){
         List<PostListDTO> goodPostList = null;
         int lastPage = 1;
@@ -87,13 +86,12 @@ public class PostController {
         if(SessionUtils.checkLogin(session)){
             int loginUserNo = (int) session.getAttribute("no");
             goodPostList = postService.getGoodPostList(loginUserNo, page, 20);
-            lastPage = postService.getGoodPostsLastPageSize(loginUserNo,20); //fixme
+            lastPage = postService.getGoodPostsLastPageSize(loginUserNo,20);
+            model.addAttribute("posts",goodPostList);
+            model.addAttribute("lastPage", lastPage);
+            return "/post/goodPostList";
         }
-
-        model.addAttribute("posts",goodPostList);
-        model.addAttribute("lastPage", lastPage);
-
-        return "/post/goodPostList";
+        return "redirect:/post/list";
     }
 
     @GetMapping("/register")
