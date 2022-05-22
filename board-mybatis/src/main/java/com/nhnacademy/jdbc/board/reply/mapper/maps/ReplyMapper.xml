@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nhnacademy.jdbc.board.reply.mapper.ReplyMapper">
+
+    <select id="findParentPost" resultType="com.nhnacademy.jdbc.board.post.dto.ReplierPost">
+        select post_no, top_post_no, parent_post_no
+        from post
+        where post_no = #{parentPostNo};
+    </select>
+</mapper>

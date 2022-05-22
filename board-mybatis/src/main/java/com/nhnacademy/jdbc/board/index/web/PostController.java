@@ -104,7 +104,7 @@ public class PostController {
     @PostMapping("/register")
     public String doRegisterPost(@RequestParam("postTitle") String title,
                                  @RequestParam("postContent") String content,
-                                 @RequestParam("file")MultipartFile file,
+                                 @RequestParam(value="file", required = false)MultipartFile file,
                                  HttpServletRequest request,
                                  Model model) {
         HttpSession session = request.getSession(false);
@@ -112,7 +112,9 @@ public class PostController {
             int writerNo = (int) session.getAttribute("no");
             postService.registerPost(writerNo, title, content);
             model.addAttribute("file",file);
-            fileService.saveFile(file);
+            if(Objects.nonNull(file)){
+                fileService.saveFile(file);
+            }
         }
         return "redirect:/post/list";
     }

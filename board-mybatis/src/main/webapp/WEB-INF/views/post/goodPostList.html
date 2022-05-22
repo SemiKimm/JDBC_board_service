@@ -37,7 +37,7 @@
     </tbody>
 </table>
 <br/>
-<span th:each="page:${#numbers.sequence(1,lastPage)}">
+<span th:if="${lastPage!=0}" th:each="page:${#numbers.sequence(1,lastPage)}">
     <a th:href="@{/post/list/good(page=${page})}" class="btn" th:text="${' ['+page+'] '}"></a>
 </span>
 <br/>

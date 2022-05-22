@@ -6,9 +6,13 @@
 </head>
 <body>
 <h1>게시글 상세보기</h1>
-<a th:href="@{/post/list}"/>목록보기</a>
-<a th:href="@{/post/update(postNo=${post.postNo})}"/>수정</a>
-<a th:href="@{/post/delete(postNo=${post.postNo})}"/>삭제</a><br/>
+<a th:href="@{/post/list}">목록보기</a>
+<span th:if="${loginUserType==1||post.userNo==loginUserNo}">
+    <a th:href="@{/post/update(postNo=${post.postNo})}">수정</a>
+    <a th:href="@{/post/delete(postNo=${post.postNo})}">삭제</a>
+</span>
+<a th:if="${loginUserNo!=null}" th:href="@{/reply/register(parentPostNo=${post.postNo})}">답글 적기</a>
+<br/>
 <label>제목 : </label><span th:text="${post.postTitle}"/>
 <fieldset>
     <legend>게시글 정보</legend>
@@ -48,8 +52,8 @@
             <td th:text="${comment.userNo}"></td>
             <td th:utext="${comment.commentContent}"></td>
             <td th:if="${comment.userNo==loginUserNo}">
-                <a th:href="@{/comment/modify(commentNo=${comment.commentNo})}"/>수정</a>
-                <a th:href="@{/comment/delete(commentNo=${comment.commentNo}, postNo=${post.postNo})}"/>삭제</a>
+                <a th:href="@{/comment/modify(commentNo=${comment.commentNo})}">수정</a>
+                <a th:href="@{/comment/delete(commentNo=${comment.commentNo}, postNo=${post.postNo})}">삭제</a>
             </td>
         </tr>
         </tbody>
