@@ -1,6 +1,5 @@
 package com.nhnacademy.jdbc.board.index.web;
 
-import com.nhnacademy.jdbc.board.file.domain.File;
 import com.nhnacademy.jdbc.board.file.service.FileService;
 import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import com.nhnacademy.jdbc.board.post.service.PostService;
@@ -95,8 +94,12 @@ public class PostController {
     }
 
     @GetMapping("/register")
-    public String registerPostForm() {
-        return "post/postForm";
+    public String registerPostForm(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(SessionUtils.checkLogin(session)) {
+            return "post/postForm";
+        }
+        return "redirect:/post/list";
     }
 
     @PostMapping("/register")
