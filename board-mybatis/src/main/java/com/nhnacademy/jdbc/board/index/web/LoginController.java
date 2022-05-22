@@ -1,17 +1,19 @@
 package com.nhnacademy.jdbc.board.index.web;
 
+import com.nhnacademy.jdbc.board.dto.UserDto;
 import com.nhnacademy.jdbc.board.user.domain.User;
 import com.nhnacademy.jdbc.board.user.service.UserService;
 import com.nhnacademy.jdbc.board.user.service.impl.DefaultUserService;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/login")
@@ -30,14 +32,18 @@ public class LoginController {
 
 
     @PostMapping
-    public String doLogin(@Param("id") String id,
-                          @Param("password") String password,
+    public String doLogin(@ModelAttribute @Validated UserDto userDto,
+                          BindingResult bindingResult,
                           HttpServletRequest request) {
-        Optional<User> user = userService.getUser(id, password);
+        if (bindingResult.hasErrors()){
+            log.error("로그인 입력값이 규격에 맞지 않습니다");
+            return "login/loginForm";
+        }
+        Optional<User> user = userService.getUser(userDto.getUserId(), userDto.getUserPassword());
         if (user.isPresent()) {
+
             HttpSession session = request.getSession(true);
             session.setAttribute("no", user.get().getUserNo());
-            log.debug("student : {}", user.get());
             return "redirect:/post/list";
         }
         return "login/loginForm";
