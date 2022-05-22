@@ -186,8 +186,7 @@ class PostControllerTest {
     void doRegisterPost_userIsLogin_fileIsExist() throws Exception {
         MockMultipartFile file =
             new MockMultipartFile("file", "test.txt", "multipart/form-data",
-                new FileInputStream(
-                    "D:\\NHN_Academy\\lectureDatabaseJdbc\\jdbcTeamProject\\jdbc_team_pj\\board-mybatis\\src\\test\\resources\\test.txt"));
+                new FileInputStream(getClass().getResource("/test.txt").getFile()));
 
         mockMvc.perform(
                 multipart("/post/register")
