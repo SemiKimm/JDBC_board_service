@@ -34,12 +34,12 @@ public class IndexController {
     }
 
     @GetMapping("logout")
-    public String index(@RequestParam("login") boolean login,
+    public String logout(@RequestParam("login") boolean login,
                         HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (Optional.ofNullable(session).isPresent() &&
             Optional.ofNullable(session.getAttribute("no")).isPresent() && !login) {
-            session.removeAttribute("no");
+            session.invalidate();
         }
         SessionUtils.deleteSearchKeyword(session);
         return "/index/index";

@@ -11,12 +11,12 @@ public class Post {
     private String postTitle;
     @Setter
     private String postContent;
-    private final Date writeDateTime;
-    private final int replyOrder;
-    private final int userNo; // fk
-    private final int boardTypeCode; // fk
-    private final Integer parentPostNo; // fk
-    private final Integer topPostNo; // fk
+    private Date writeDateTime;
+    private int replyOrder;
+    private int userNo; // fk
+    private int boardTypeCode; // fk
+    private Integer parentPostNo; // fk
+    private Integer topPostNo; // fk
     @Setter
     private Integer modifierUserNo; // fk
     @Setter
@@ -65,5 +65,9 @@ public class Post {
         this.topPostNo = topPostNo;
         this.modifierUserNo = modifierUserNo;
         this.modifyDatetime = modifyDatetime;
+    }
+
+    public Post(Integer postNo) {
+        this.postNo = postNo;
     }
 }
