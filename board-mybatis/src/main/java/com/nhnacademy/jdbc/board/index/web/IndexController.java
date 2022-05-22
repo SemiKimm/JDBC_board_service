@@ -41,7 +41,6 @@ public class IndexController {
             Optional.ofNullable(session.getAttribute("no")).isPresent() && !login) {
             session.invalidate();
         }
-        SessionUtils.deleteSearchKeyword(session);
         return "/index/index";
     }
 }
