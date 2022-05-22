@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PostUpdateController {
@@ -52,19 +51,15 @@ public class PostUpdateController {
                                Model model) {
         HttpSession session = request.getSession(false);
         int userNo = (int) session.getAttribute("no");
-
         User user = userService.getUserByNo(userNo).get();
         Post post = postService.getPost(postNo).get();
-
         if (userNo == post.getUserNo() || user.getUserTypeCode() == 1) {
             post.setPostTitle(postTitle);
             post.setPostContent(postContent);
             post.setModifierUserNo(userNo);
             post.setModifyDatetime(new Timestamp(new Date().getTime()));
             postService.updatePost(post);
-            return "redirect:/post/postView?no=" + postNo;
-        } else {
-            return "redirect:/post/postView?no=" + postNo;
         }
+        return "redirect:/post/postView?no=" + postNo;
     }
 }

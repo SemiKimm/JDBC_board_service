@@ -39,9 +39,6 @@ public class PostGoodController {
     public String isUserGoodToPost(@RequestParam("postNo") int postNo,
                                    HttpServletRequest request,
                                    Model model){
-//        if (postNo == null){
-//            throw new RuntimeException();
-//        }
         HttpSession session = request.getSession(false);
         Integer loginUserNo = null;
         if(Objects.nonNull(session) &&Objects.nonNull(session.getAttribute("no"))){

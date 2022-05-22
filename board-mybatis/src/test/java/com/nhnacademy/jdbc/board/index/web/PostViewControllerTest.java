@@ -24,6 +24,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -51,7 +52,7 @@ class PostViewControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(postViewController).build();
     }
 
-    // login 한 user 의 경우
+    @DisplayName("login 한 user 의 경우에 게시글 상세화면 보기") 
     @Test
     void viewPage_loginUser() throws Exception {
         when(userService.getUserByNo(anyInt())).thenReturn(
@@ -70,7 +71,7 @@ class PostViewControllerTest {
             .isEqualTo(1);
     }
 
-    // login 안한 user 의 경우
+    @DisplayName("login 안한 user 의 경우에 게시글 상세화면 보기")
     @Test
     void viewPage_notLoginUser() throws Exception {
         when(userService.getUserByNo(anyInt())).thenReturn(
