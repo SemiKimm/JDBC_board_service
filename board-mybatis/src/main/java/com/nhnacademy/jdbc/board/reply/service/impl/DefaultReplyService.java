@@ -36,23 +36,10 @@ public class DefaultReplyService implements ReplyService {
             reply.setReplyOrder(1);
             reply.setTopPostNo(parentPost.getPostNo());
         } else {
-            //fixme 이때 replyorder 어케 구할까..
+            //todo:
             reply.setTopPostNo(parentPost.getTopPostNo());
 
         }
-        /*
-        1
-        2
-            4 t:2 p:2
-            7 t:2 p:2
-                8  t:2 p:7
-                    9  t:2 p:7
-                        10  t:2 p:7
-                            11  t:2 p:7
-        3
-            5
-                6
-         */
         return 0;
     }
 }

@@ -53,7 +53,7 @@ public class DefaultPostService implements PostService {
     public Optional<Post> getPost(int no) {
         Optional<Post> post = postMapper.selectPost(no);
         if (post.isEmpty()) {
-            throw new RuntimeException(); // todo
+            throw new RuntimeException();
         }
         return post;
     }

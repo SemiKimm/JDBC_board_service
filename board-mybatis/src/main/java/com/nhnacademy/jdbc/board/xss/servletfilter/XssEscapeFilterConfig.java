@@ -279,7 +279,6 @@ public class XssEscapeFilterConfig {
      * @return void
      */
     private void addDefender(String name, String clazz, String[] args) {
-        // TODO 필수 파라미터의 검증은 향후 DTD나 XSL등 XML 정합성체크에 맡겨야함
         if (StringUtils.isBlank(name) || StringUtils.isBlank(clazz)) {
             String message = String.format("The defender's name('%s') or clazz('%s') is empty. This defender is ignored", name, clazz);
             LOG.warn(message);
