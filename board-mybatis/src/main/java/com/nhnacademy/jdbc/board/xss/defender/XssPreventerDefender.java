@@ -16,10 +16,27 @@ package com.nhnacademy.jdbc.board.xss.defender;
  * limitations under the License.
  */
 
+import com.nhncorp.lucy.security.xss.XssPreventer;
+
 /**
  * @author todtod80
  */
-public interface Defender {
-    public abstract void init(String[] values);
-    public abstract String doFilter(String value);
+public class XssPreventerDefender implements Defender {
+
+    /**
+     * @param values String[]
+     * @return void
+     */
+    @Override
+    public void init(String[] values) {
+    }
+
+    /**
+     * @param value String
+     * @return String
+     */
+    @Override
+    public String doFilter(String value) {
+        return XssPreventer.escape(value);
+    }
 }
