@@ -16,7 +16,8 @@ package com.nhnacademy.jdbc.board.xss.servletfilter;
  * limitations under the License.
  */
 
-import com.navercorp.lucy.security.xss.servletfilter.defender.Defender;
+
+import com.nhnacademy.jdbc.board.xss.defender.Defender;
 
 /**
  * @author todtod80
