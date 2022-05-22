@@ -25,6 +25,9 @@
     <legend>본문</legend>
     <div stype="white-space:pre-wrap" th:utext="${post.postContent}"></div>
 </fieldset>
+    <div th:if="${file!=null}">
+        첨부파일:<a th:href="@{/post/postView(no = ${post.postNo})}" th:text="${file.fileName}" />
+    </div>
     <a th:href="@{/post/postView/isUserGoodToPost(postNo=${post.postNo})}">좋아요</a>
     <span th:text="${goodCount}"/><br/>
 <fieldset>

@@ -2,6 +2,7 @@ package com.nhnacademy.jdbc.board.index.web;
 
 
 import com.nhnacademy.jdbc.board.comment.service.CommentService;
+import com.nhnacademy.jdbc.board.file.service.FileService;
 import com.nhnacademy.jdbc.board.good.service.GoodService;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,11 +26,13 @@ public class PostGoodController {
     private final GoodService goodService;
     private final PostService postService;
     private final CommentService commentService;
+    private final FileService fileService;
 
-    public PostGoodController(GoodService goodService,PostService postService,CommentService commentService) {
+    public PostGoodController(GoodService goodService,PostService postService,CommentService commentService,FileService fileService) {
         this.goodService = goodService;
         this.postService = postService;
         this.commentService = commentService;
+        this.fileService = fileService;
     }
 
     @GetMapping
@@ -57,6 +60,7 @@ public class PostGoodController {
             goodService.insertGood(postNo,userNo);
         }
         model.addAttribute("goodCount",goodService.getGoodCount(postNo));
+        model.addAttribute("file",fileService.selectFile(postNo));
         return "post/postView";
     }
 }

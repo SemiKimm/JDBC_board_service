@@ -1,5 +1,7 @@
 package com.nhnacademy.jdbc.board.index.web;
 
+import com.nhnacademy.jdbc.board.file.domain.File;
+import com.nhnacademy.jdbc.board.file.service.FileService;
 import com.nhnacademy.jdbc.board.post.dto.PostListDTO;
 import com.nhnacademy.jdbc.board.post.service.PostService;
 import com.nhnacademy.jdbc.board.user.service.UserService;
@@ -15,17 +17,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/post")
 public class PostController {
     private final PostService postService;
     private final UserService userService;
+    private final FileService fileService;
 
     public PostController(PostService postService,
-                          UserService userService) {
+                          UserService userService,
+                          FileService fileService) {
         this.postService = postService;
         this.userService = userService;
+        this.fileService = fileService;
     }
 
     @GetMapping(value = "/list")
@@ -98,11 +104,15 @@ public class PostController {
     @PostMapping("/register")
     public String doRegisterPost(@RequestParam("postTitle") String title,
                                  @RequestParam("postContent") String content,
-                                 HttpServletRequest request) {
+                                 @RequestParam("file")MultipartFile file,
+                                 HttpServletRequest request,
+                                 Model model) {
         HttpSession session = request.getSession(false);
         if(SessionUtils.checkLogin(session)){
             int writerNo = (int) session.getAttribute("no");
             postService.registerPost(writerNo, title, content);
+            model.addAttribute("file",file);
+            fileService.saveFile(file);
         }
         return "redirect:/post/list";
     }

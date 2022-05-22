@@ -5,7 +5,7 @@
     <title>게시글 작성</title>
 </head>
 <body>
-<form method="post" th:action="@{/post/register}">
+<form method="post" th:action="@{/post/register}" enctype="multipart/form-data">
     <label>
         제목<br />
         <input type="text" name="postTitle" placeholder="제목을 입력하세요."/>
@@ -17,6 +17,7 @@
     </label>
 
     <br/>
+    File : <input type="file" name="file">
     <input type="submit" value="저장">
 </form>
 </body>
